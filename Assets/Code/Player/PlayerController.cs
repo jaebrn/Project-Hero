@@ -101,6 +101,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
 
+        else if (OnWall == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+            jumpTimerMax = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
+
 
         // the way this works is jumpTimerMax is great than zero when first just key (space) is pressed,
         // which lets the player jump giving the variable jump height however jumpTimerMax will gradually reach 0 due to time.deltatime effectivly timing out the jump
