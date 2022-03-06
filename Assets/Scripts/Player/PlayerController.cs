@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Variable Declarations
     // basic calls to get sprite moving
     private Rigidbody2D rb;
-    private CircleCollider2D collider;
     public float moveSpeed;
     private float moveInput;
     //see void flip \/
@@ -34,13 +34,17 @@ public class PlayerController : MonoBehaviour
 
     public float bouncePadMultiplier = 150;
 
+    private Vector2 respawnPoint;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
     {
         //component references
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<CircleCollider2D>();
+        respawnPoint = transform.position; 
         
     }
 
@@ -189,6 +193,7 @@ public class PlayerController : MonoBehaviour
         // kills
         else if (collision.gameObject.tag == "Hazard")
         {
+            transform.position = respawnPoint;
             Debug.Log("ouch");
         }
     }
