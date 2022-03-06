@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public float wallCheckRadius;
     public LayerMask whatisWall;
 
-    public float bouncePadMultiplier = 50;
+    public float bouncePadMultiplier = 150;
 
 
     // Start is called before the first frame update
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         //component references
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<CircleCollider2D>();
         
     }
 
@@ -180,7 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bounce Pad")
         {
-            rb.AddForce(new Vector2(0, rb.velocity.y * bouncePadMultiplier),ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * bouncePadMultiplier,ForceMode2D.Impulse);
             Debug.Log("bounce pad");
         }
     }
