@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     // basic calls to get sprite moving
     private Rigidbody2D rb;
+    private CircleCollider2D collider;
     public float moveSpeed;
     private float moveInput;
     //see void flip \/
@@ -18,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck; //this makes it so we're looking for the xy coordinates of groundCheck thats what transform does not move it
     public float checkRadius;
     public LayerMask whatisGround; // lets you select in inspector what layer counts as ground
-
-
 
     public float jumpForce;
     //The max amount of time Jumping will be read for \/
@@ -33,11 +32,13 @@ public class PlayerController : MonoBehaviour
     public float wallCheckRadius;
     public LayerMask whatisWall;
 
+    public float bouncePadMultiplier = 50;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //ridgidbody reference
+        //component references
         rb = GetComponent<Rigidbody2D>();
         
     }
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
+        #region Basic Jumping
         /* so how the jumping works
        OnGround is a true/false varaible the value is determined by groundCheck.Position
        which looks at the xy coordinates for where the checkradius should be,
@@ -156,11 +158,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
-
-
-
         /*
          * this was code used to get character moving and worked but not as needed
          * 
@@ -168,13 +165,23 @@ public class PlayerController : MonoBehaviour
             {
                 rb.AddForce(new Vector2(MoveSpeed, 0));
             }
-                
+
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                rb.AddForce(new Vector2(-MoveSpeed, 0));
             }
         */
+        #endregion
 
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bounce Pad")
+        {
+            rb.AddForce(new Vector2(0, rb.velocity.y * bouncePadMultiplier),ForceMode2D.Impulse);
+            Debug.Log("bounce pad");
+        }
     }
 }
