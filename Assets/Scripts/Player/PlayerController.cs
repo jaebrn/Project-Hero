@@ -179,10 +179,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // bounce pad
         if (collision.gameObject.tag == "Bounce Pad")
         {
             rb.AddForce(Vector2.up * bouncePadMultiplier,ForceMode2D.Impulse);
             Debug.Log("bounce pad");
+        }
+
+        // kills
+        else if (collision.gameObject.tag == "Hazard")
+        {
+            Debug.Log("ouch");
         }
     }
 }

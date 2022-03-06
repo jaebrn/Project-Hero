@@ -8,12 +8,29 @@ public class Parallax : MonoBehaviour
     private float length, startpos; // variables dictating length and starting position of background sprites
     public GameObject cam; // camera
     public float parallaxEffect; // intensity of parallax
+    private Component component;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D box;
 
     // Start is called before the first frame update
     void Start()
     {
+        component = GetComponent<SpriteRenderer>();
+        if(component == null) // kill floor
+        {
+            box = GetComponent<BoxCollider2D>();
+            length = box.bounds.size.x;
+        }
+        else //background 
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            length = spriteRenderer.bounds.size.x;
+        }
+        
         startpos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        
+
+        
     }
 
     // Update is called once per frame
