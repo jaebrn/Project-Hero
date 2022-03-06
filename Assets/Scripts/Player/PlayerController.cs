@@ -190,11 +190,21 @@ public class PlayerController : MonoBehaviour
             Debug.Log("bounce pad");
         }
 
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         // kills
-        else if (collision.gameObject.tag == "Hazard")
+        if (collision.gameObject.tag == "Hazard")
         {
             transform.position = respawnPoint;
             Debug.Log("ouch");
+        }
+
+        else if (collision.gameObject.tag == "Checkpoint")
+        {
+            respawnPoint = new Vector2 (transform.position.x, transform.position.y + 1);
         }
     }
 }
